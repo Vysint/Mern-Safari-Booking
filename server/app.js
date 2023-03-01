@@ -7,7 +7,7 @@ const usersRoute = require("./routes/usersRoute");
 const hotelsRoute = require("./routes/hotelsRoute");
 const roomsRoute = require("./routes/roomsRoute");
 
-const HttpError = require("./models/http-error");
+const HttpError = require("./models/error");
 
 const app = express();
 dotenv.config();
@@ -26,15 +26,10 @@ app.use((req, res, next) => {
 });
 
 // Error middleware
-app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500;
-  const errormessage = err.message || "Something went wrong!";
-  return res.status(errorStatus).json({
-    success: false,
-    status: errorStatus,
-    message: errormessage,
-    stack: err.stack,
-  });
+app.use((error, req, res, next) => {
+  res
+    .status(error.code || 500)
+    .json({ message: error.message || "An unknown error occurred!" });
 });
 
 const connect = async () => {
