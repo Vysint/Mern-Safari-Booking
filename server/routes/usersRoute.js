@@ -1,7 +1,7 @@
 const express = require("express");
 
 const userControllers = require("../controllers/UserController");
-const tokenControllers = require("../util/verifyToken");
+const { verifyUser, verifyAdmin } = require("../util/verifyToken");
 
 const router = express.Router();
 
@@ -26,15 +26,15 @@ const router = express.Router();
 // );
 
 // UPDATE
-router.put("/:id", tokenControllers.verifyUser, userControllers.updateUser);
+router.put("/:id", verifyUser, userControllers.updateUser);
 
 // DELETE
-router.delete("/:id", tokenControllers.verifyUser, userControllers.deleteUser);
+router.delete("/:id", verifyUser, userControllers.deleteUser);
 
 // GET
-router.get("/:id", tokenControllers.verifyUser, userControllers.getUser);
+router.get("/:id", verifyUser, userControllers.getUser);
 
 // GET ALL
-router.get("/", tokenControllers.verifyAdmin, userControllers.getUsers);
+router.get("/", verifyAdmin, userControllers.getUsers);
 
 module.exports = router;
