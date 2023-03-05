@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/error");
 
-exports.verifyToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token;
 
   if (!token) {
@@ -16,7 +16,7 @@ exports.verifyToken = (req, res, next) => {
   });
 };
 
-exports.verifyUser = (req, res, next) => {
+const verifyUser = (req, res, next) => {
   verifyToken(req, res, next, () => {
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
@@ -26,7 +26,7 @@ exports.verifyUser = (req, res, next) => {
   });
 };
 
-exports.verifyAdmin = (req, res, next) => {
+const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, next, () => {
     if (req.user.isAdmin) {
       next();
@@ -35,3 +35,5 @@ exports.verifyAdmin = (req, res, next) => {
     }
   });
 };
+
+module.exports = { verifyToken, verifyUser, verifyAdmin };
