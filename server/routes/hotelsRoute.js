@@ -16,4 +16,8 @@ router.get("/:id", hotelControllers.getHotel);
 //GET ALL
 router.get("/", hotelControllers.getAllHotels);
 
+router.get("/countByCity", hotelControllers.countByCity);
+
+router.get("/countByType", hotelControllers.getAllHotels);
+
 module.exports = router;
