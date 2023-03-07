@@ -14,9 +14,9 @@ const HttpError = require("./models/error");
 const app = express();
 dotenv.config();
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
