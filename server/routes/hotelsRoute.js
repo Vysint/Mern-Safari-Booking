@@ -11,12 +11,12 @@ router.post("/", verifyAdmin, hotelControllers.createHotel);
 router.put("/:id", verifyAdmin, hotelControllers.updateHotel);
 //DELETE
 router.delete("/:id", verifyAdmin, hotelControllers.deleteHotel);
+
+router.get("/countByCity", hotelControllers.countByCity);
 //GET
 router.get("/:id", hotelControllers.getHotel);
 //GET ALL
 router.get("/", hotelControllers.getAllHotels);
-
-router.get("/countByCity", hotelControllers.countByCity);
 
 router.get("/countByType", hotelControllers.getAllHotels);
 
