@@ -16,9 +16,18 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [openDate, setOpenDate] = useState(false);
 
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
+
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:8800/api/hotels?city=${destination}`
+    `http://localhost:8800/api/hotels?city=${destination}&min=${min || 0}&max=${
+      max || 999
+    }`
   );
+
+  const handleClick = () => {
+    reFetch();
+  };
   return (
     <div>
       <Navbar />
@@ -52,13 +61,21 @@ const List = () => {
                   <span className="lsOptionText">
                     Min price <small>per night</small>
                   </span>
-                  <input type="text" className="lsOptionInput" />
+                  <input
+                    type="text"
+                    onChange={(e) => setMin(e.target.value)}
+                    className="lsOptionInput"
+                  />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
                     Max price <small>per night</small>
                   </span>
-                  <input type="text" className="lsOptionInput" />
+                  <input
+                    type="text"
+                    onChange={(e) => setMax(e.target.value)}
+                    className="lsOptionInput"
+                  />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Adult</span>
@@ -89,7 +106,7 @@ const List = () => {
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
             {loading ? (
