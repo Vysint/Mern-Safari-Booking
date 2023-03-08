@@ -20,6 +20,7 @@
 }
 .fpCity{
   font-weight: 300;
+  text-transform: capitalize;
 }
 .fpPrice{
   font-weight: 500;
