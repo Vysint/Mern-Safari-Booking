@@ -49,14 +49,16 @@ exports.getHotel = async (req, res, next) => {
   }
 };
 
-exports.getAllHotels = async (req, res, next) => {
+exports.getHotels = async (req, res, next) => {
   const { min, max, ...others } = req.query;
+  
   try {
     const hotels = await Hotel.find({
       ...others,
       cheapestPrice: { $gt: min | 1, $lt: max || 999 },
-    }).limit(req.query.limit);
-    res.status(200).json({ hotels: hotels });
+    }).limit(4);
+
+    res.status(200).json(hotels);
   } catch (err) {
     return next(
       new HttpError("Something went wrong, could not retrieve the data", 500)
