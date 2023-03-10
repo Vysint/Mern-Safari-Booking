@@ -16,6 +16,7 @@ import { format } from "date-fns";
 import { SearchContext } from "../../context/SearchContext";
 
 import "./Header.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const Header = ({ type }) => {
   const [dates, setDates] = useState([
@@ -35,6 +36,8 @@ const Header = ({ type }) => {
   const [openDate, setOpenDate] = useState(false);
 
   const navigate = useNavigate();
+
+  const { user } = useContext(AuthContext);
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -92,7 +95,7 @@ const Header = ({ type }) => {
               Get rewarded for your travels - unlock instant savings of 10% or
               more with a free safaribooking account.
             </p>
-            <button className="headerBtn">Sign in/ Register</button>
+            {!user && <button className="headerBtn">Sign in/ Register</button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
