@@ -8,7 +8,6 @@ const Featured = () => {
     "http://localhost:8800/api/hotels/countByCity?cities=berlin,madrid,london"
   );
 
-  console.log(data);
   return (
     <div className="featured">
       {loading ? (
