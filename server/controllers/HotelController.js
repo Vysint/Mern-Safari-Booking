@@ -110,6 +110,8 @@ exports.getHotelRooms = async (req, res, next) => {
     );
     res.status(200).json(list);
   } catch (err) {
-    return next(new HttpError("Fetching Rooms Failed!", 500));
+    return next(err);
   }
 };
+
+// new HttpError("Fetching Rooms Failed!", 500)
