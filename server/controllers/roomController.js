@@ -3,7 +3,7 @@ const Hotel = require("../models/Hotel");
 const HttpError = require("../models/error");
 
 exports.createRoom = async (req, res, next) => {
-  const hotelId = req.params.hotelId;
+  const hotelId = req.params.hotelid;
   const newRoom = new Room(req.body);
 
   try {
@@ -13,11 +13,11 @@ exports.createRoom = async (req, res, next) => {
         $push: { rooms: savedRoom._id },
       });
     } catch (err) {
-      return next(new HttpError("Update Failed!", 500));
+      next(err);
     }
     res.status(200).json(savedRoom);
   } catch (err) {
-    return next(new HttpError("Something went wrong!", 500));
+    next(err);
   }
 };
 
