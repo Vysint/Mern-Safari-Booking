@@ -4,7 +4,7 @@ const roomControllers = require("../controllers/roomController");
 
 const router = express.Router();
 
-router.post("/:hotelIid", verifyAdmin, roomControllers.createRoom);
+router.post("/:hotelid", verifyAdmin, roomControllers.createRoom);
 
 router.put("/:id", verifyAdmin, roomControllers.updateRoom);
 
