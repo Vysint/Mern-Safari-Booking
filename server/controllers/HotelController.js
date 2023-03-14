@@ -1,4 +1,5 @@
 const Hotel = require("../models/Hotel");
+const Room = require("../models/Room");
 const HttpError = require("../models/error");
 
 //CREATE
@@ -51,7 +52,7 @@ exports.getHotel = async (req, res, next) => {
 
 exports.getHotels = async (req, res, next) => {
   const { min, max, ...others } = req.query;
-  
+
   try {
     const hotels = await Hotel.find({
       ...others,
@@ -96,5 +97,19 @@ exports.countByType = async (req, res, next) => {
     ]);
   } catch (err) {
     return next(new HttpError("Something went wrong, try again.", 500));
+  }
+};
+
+exports.getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+    const list = await Promise.all(
+      hotel.rooms.map((room) => {
+        return Room.findById(room);
+      })
+    );
+    res.status(200).json(list);
+  } catch (err) {
+    return next(new HttpError("Fetching Rooms Failed!", 500));
   }
 };
