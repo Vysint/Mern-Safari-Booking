@@ -8,6 +8,8 @@ router.post("/:hotelid", verifyAdmin, roomControllers.createRoom);
 
 router.put("/:id", verifyAdmin, roomControllers.updateRoom);
 
+router.put("/availability/:id", roomControllers.updateRoomAvailability);
+
 router.delete("/:id/:hotelid", verifyAdmin, roomControllers.deleteRoom);
 
 router.get("/:id", roomControllers.getRoom);
